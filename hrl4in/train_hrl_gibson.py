@@ -384,9 +384,9 @@ def main():
     random.seed(args.seed)
     np.random.seed(args.seed)
 
-    # device = torch.device("cuda:{}".format(args.pth_gpu_id))
+    device = torch.device("cuda:{}".format(args.pth_gpu_id))
 
-    device = torch.device("cpu") # added since python version == 3.6.15 collision to rtx 4060 
+    # device = torch.device("cpu") # added since python version == 3.6.15 collision to rtx 4060 
 
     logger.add_filehandler(log_file)
 

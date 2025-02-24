@@ -14,8 +14,8 @@ def add_env_args(parser):
     group.add_argument(
         "--env-mode",
         type=str,
-        default="gui",
-        help="environment mode for the simulator (default: gui)",
+        default="headless",
+        help="environment mode for the simulator (default: headless)",
     )
     group.add_argument(
         "--action-timestep",

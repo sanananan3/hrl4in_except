@@ -254,10 +254,10 @@ def main():
                                       num=args.num_train_processes + args.num_eval_processes,
                                       dtype=np.int,
                                       endpoint=False)
-    train_envs = [lambda device_idx=sim_gpu_id[env_id_to_which_gpu[env_id]]: load_env("gui", device_idx)
+    train_envs = [lambda device_idx=sim_gpu_id[env_id_to_which_gpu[env_id]]: load_env("headless", device_idx)
                   for env_id in range(args.num_train_processes)]
     train_envs = ParallelNavEnvironment(train_envs, blocking=False)
-    eval_envs = [lambda device_idx=sim_gpu_id[env_id_to_which_gpu[env_id]]: load_env("gui", device_idx)
+    eval_envs = [lambda device_idx=sim_gpu_id[env_id_to_which_gpu[env_id]]: load_env("headless", device_idx)
                  for env_id in range(args.num_train_processes, args.num_train_processes + args.num_eval_processes - 1)]
     eval_envs += [lambda: load_env(args.env_mode, sim_gpu_id[env_id_to_which_gpu[-1]])]
     eval_envs = ParallelNavEnvironment(eval_envs, blocking=False)

@@ -443,17 +443,23 @@ def main():
 
 
     sim_gpu_id = [int(gpu_id) for gpu_id in args.sim_gpu_id.split(",")]
-    env_id_to_which_gpu = np.linspace(0,
+
+    if len(sim_gpu_id) == 1:
+        env_id_to_which_gpu = [0] * (args.num_train_processes + args.num_eval_processes)
+    else:
+        env_id_to_which_gpu = np.linspace(0,
                                       len(sim_gpu_id),
                                       num=args.num_train_processes + args.num_eval_processes,
                                       dtype=np.int,
                                       endpoint=False)
+        
     train_envs = [lambda device_idx=sim_gpu_id[env_id_to_which_gpu[env_id]]: load_env("headless", device_idx)
                   for env_id in range(args.num_train_processes)]
+    
     print("[INFO] train_envs:", train_envs)
     print("[INFO] sim_gpu_id:", sim_gpu_id)
     print("[INFO] env_id_to_which_gpu:", env_id_to_which_gpu)
-    
+
     train_envs = ParallelNavEnvironment(train_envs, blocking=False)
     eval_envs = [lambda device_idx=sim_gpu_id[env_id_to_which_gpu[env_id]]: load_env("headless", device_idx)
                  for env_id in range(args.num_train_processes, args.num_train_processes + args.num_eval_processes - 1)]

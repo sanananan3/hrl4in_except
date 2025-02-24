@@ -254,6 +254,7 @@ def main():
                                       num=args.num_train_processes + args.num_eval_processes,
                                       dtype=np.int,
                                       endpoint=False)
+    print("[INFO] sim_gpu_id : ", sim_gpu_id )
     train_envs = [lambda device_idx=sim_gpu_id[env_id_to_which_gpu[env_id]]: load_env("headless", device_idx)
                   for env_id in range(args.num_train_processes)]
     train_envs = ParallelNavEnvironment(train_envs, blocking=False)

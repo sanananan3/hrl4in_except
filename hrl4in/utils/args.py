@@ -14,7 +14,7 @@ def add_env_args(parser):
     group.add_argument(
         "--env-mode",
         type=str,
-        default="headless",
+        default="gui",
         help="environment mode for the simulator (default: headless)",
     )
     group.add_argument(
